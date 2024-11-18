@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Essential topics for bioscientists using Python and R in computational biology and bioinformatics.">
+    <title>Computational Biology: Python & R Curriculum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --text-color: #2c3e50;
+            --light-bg: #f8f9fa;
+            --border-color: #e9ecef;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            padding-bottom: 60px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Lora', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        h2 {
+            font-family: 'Lora', serif;
+            color: var(--primary-color);
+            margin-top: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+            font-weight: 600;
+        }
+
+        .topic-category {
+            margin-bottom: 3rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .topic-category:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            margin: 1rem 0;
+            padding: 1rem 1.5rem;
+            background: var(--light-bg);
+            border-radius: 6px;
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.2s ease;
+        }
+
+        ul li:hover {
+            transform: translateX(5px);
+            background: #f0f4f8;
+        }
+
+        ul li strong {
+            color: var(--primary-color);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .button-container {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .button {
+            padding: 0.8rem 2rem;
+            margin: 0 0.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        .button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-1px);
+        }
+
+        .button.active {
+            background: var(--accent-color);
+            box-shadow: 0 2px 4px rgba(52, 152, 219, 0.2);
+        }
+
+        .language-section {
+            display: none;
+        }
+
+        .language-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem 0;
+            background: var(--primary-color);
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            border-bottom: 1px dotted rgba(255,255,255,0.6);
+        }
+
+        footer a:hover {
+            border-bottom: 1px solid white;
+        }
+
+        .skill-level {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .beginner {
+            background-color: #27ae60;
+        }
+
+        .advanced {
+            background-color: #8e44ad;
+        }
+
+        .description {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+    </style>
+    <script>
+        function showLanguage(language) {
+            const sections = document.querySelectorAll('.language-section');
+            const buttons = document.querySelectorAll('.button');
+
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            document.getElementById(language).classList.add('active');
+            document.querySelector(`[data-language="${language}"]`).classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showLanguage('r');
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Computational Biology Curriculum</h1>
+        <div class="subtitle">A Comprehensive Guide to Python & R in Biosciences</div>
+    </header>
+    <div class="container">
+        <div class="button-container">
+            <button class="button" data-language="python" onclick="showLanguage('python')">Python</button>
+            <button class="button" data-language="r" onclick="showLanguage('r')">R</button>
+        </div>
+        <div id="python" class="language-section">
+            <div class="topic-category">
+                <span class="skill-level beginner">Foundation Level</span>
+                <h2>Python Fundamentals for Biosciences</h2>
+                <p class="description">Essential Python programming concepts tailored for biological data analysis and manipulation.</p>
+                <ul>
+                    <li>
+                        <strong>Computational Foundations</strong>
+                        Variables, data structures, control flow, and functions with biological examples
+                    </li>
+                    <li>
+                        <strong>Data Analysis & Visualization</strong>
+                        Pandas for genomic data manipulation, Matplotlib/Seaborn for publication-quality figures
+                    </li>
+                    <li>
+                        <strong>Biological Sequence Analysis</strong>
+                        DNA/RNA/protein sequence manipulation using Biopython
+                    </li>
+                    <li>
+                        <strong>Laboratory Automation</strong>
+                        Script development for high-throughput experimental data processing
+                    </li>
+                    <li>
+                        <strong>Statistical Learning</strong>
+                        Basic machine learning applications in biological classification problems
+                    </li>
+                </ul>
+            </div>
+            <div class="topic-category">
+                <span class="skill-level advanced">Advanced Applications</span>
+                <h2>Advanced Python in Computational Biology</h2>
+                <p class="description">Sophisticated computational methods for complex biological data analysis and research applications.</p>
+                <ul>
+                    <li>
+                        <strong>Deep Learning in Biological Imaging</strong>
+                        Neural networks for microscopy image analysis and cellular phenotyping
+                    </li>
+                    <li>
+                        <strong>Next-Generation Sequencing Analysis</strong>
+                        Custom pipelines for DNA/RNA-seq data processing and variant detection
+                    </li>
+                    <li>
+                        <strong>Multi-omics Data Integration</strong>
+                        Advanced techniques for integrating genomics, proteomics, and metabolomics data
+                    </li>
+                    <li>
+                        <strong>High-Performance Biocomputing</strong>
+                        Parallel processing for large-scale biological data analysis
+                    </li>
+                    <li>
+                        <strong>Scientific Software Development</strong>
+                        Creating and publishing bioinformatics tools and packages
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="r" class="language-section">
+            <div class="topic-category">
+                <span class="skill-level beginner">Foundation Level</span>
+                <h2>R Fundamentals for Biosciences</h2>
+                <p class="description">Core R programming concepts essential for biological data analysis and statistics.</p>
+                <ul>
+                    <li>
+                        <strong>Statistical Computing Foundations</strong>
+                        Data structures, functions, and statistical programming basics
+                    </li>
+                    <li>
+                        <strong>Biological Data Visualization</strong>
+                        Creating publication-ready figures with ggplot2 for biological data
+                    </li>
+                    <li>
+                        <strong>Biostatistics Fundamentals</strong>
+                        Statistical testing and modeling for experimental data
+                    </li>
+                    <li>
+                        <strong>Genomic Data Analysis</strong>
+                        Introduction to Bioconductor for genomic data processing
+                    </li>
+                    <li>
+                        <strong>Expression Analysis</strong>
+                        Basic differential expression analysis and visualization
+                    </li>
+                </ul>
+            </div>
+            <div class="topic-category">
+                <span class="skill-level advanced">Advanced Applications</span>
+                <h2>Advanced R in Computational Biology</h2>
+                <p class="description">Advanced statistical methods and computational techniques for complex biological research.</p>
+                <ul>
+                    <li>
+                        <strong>Advanced Statistical Methods</strong>
+                        Mixed-effects models, survival analysis, and multivariate statistics
+                    </li>
+                    <li>
+                        <strong>Single-Cell Transcriptomics</strong>
+                        Advanced analysis techniques using Seurat and modern workflows
+                    </li>
+                    <li>
+                        <strong>Advanced Data Visualization</strong>
+                        Complex multi-dimensional data visualization for biological insights
+                    </li>
+                    <li>
+                        <strong>Bioinformatics Package Development</strong>
+                        Creating and deploying packages for the scientific community
+                    </li>
+                    <li>
+                        <strong>Machine Learning Applications</strong>
+                        Advanced biological prediction models and classification systems
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>© 2024 Computational Biology Initiative | <a href="https://github.com/yourusername" target="_blank">View on GitHub</a></p>
+    </footer>
+</body>
+</html>
