@@ -1,0 +1,170 @@
+---
+title: "Comprehensive Introduction to R Programming for Data Science"
+author: "Zorzi Enrico"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    theme: default
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+```
+
+# R Basics: Vectors, Matrices, and Data Frames
+
+R is a versatile language for statistical computing and data analysis. Its fundamental data structures form the foundation of most data operations.
+
+## Vectors
+
+Vectors, the most basic data structure in R, are one-dimensional arrays that store elements of the same type (numeric, character, or logical).
+
+```{r vectors}
+# Creating vectors
+numeric_vector <- c(1, 2, 3, 4, 5)
+character_vector <- c("apple", "banana", "cherry")
+logical_vector <- c(TRUE, FALSE, TRUE)
+
+# Vector operations
+sum_vector <- numeric_vector + 10
+mean_value <- mean(numeric_vector)
+
+# Filtering values greater than 3
+filtered_vector <- numeric_vector[numeric_vector > 3]
+```
+
+Vectors are created using the `c()` function. Basic operations include element-wise addition and summary statistics like the mean. Logical vectors are crucial for filtering data.
+
+## Matrices
+
+Matrices are two-dimensional arrays holding data of the same type, suitable for tabular numeric data. They are widely used in linear algebra and machine learning.
+
+```{r matrices}
+# Creating a matrix
+matrix_data <- matrix(1:9, nrow = 3, ncol = 3)
+
+# Matrix operations
+transposed_matrix <- t(matrix_data)
+matrix_product <- matrix_data %*% transposed_matrix
+```
+
+Real-world application: Matrices are used in neural networks for forward and backward propagation.
+
+## Data Frames
+
+Data frames, the most commonly used data structure in R, allow storage of mixed data types. They are ideal for working with datasets in data science.
+
+```{r dataframes}
+# Creating a data frame
+df <- data.frame(
+  Name = c("Alice", "Bob", "Charlie"),
+  Age = c(25, 30, 35),
+  Height = c(165, 180, 175)
+)
+
+# Accessing data frame elements
+print(df$Name)  # Accessing a column
+print(df[1, 2])  # Accessing a specific element
+```
+
+Real-world application: Data frames are used in machine learning for handling datasets during preprocessing.
+
+# Data Visualization: ggplot2
+
+Data visualization is crucial for understanding and communicating insights. The `ggplot2` package is part of the tidyverse ecosystem and provides a powerful system for creating high-quality plots.
+
+## Basic Plots
+
+```{r basic_plots}
+# Basic scatter plot
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point() +
+  labs(title = "Car Weight vs. MPG",
+       x = "Weight (1000 lbs)",
+       y = "Miles per Gallon")
+
+# Bar plot with customization
+ggplot(mtcars, aes(x = factor(cyl), y = mpg)) +
+  geom_bar(stat = "identity", fill = "skyblue") +
+  theme_minimal() +
+  labs(title = "Average MPG by Cylinder Count",
+       x = "Number of Cylinders",
+       y = "Miles per Gallon")
+```
+
+## Customization and Themes
+
+`ggplot2` allows for extensive customization through themes and annotations.
+
+```{r customized_plots}
+ggplot(mtcars, aes(x = wt, y = mpg)) +
+  geom_point(color = "blue", size = 3) +
+  theme_classic() +
+  labs(title = "Customized Scatter Plot",
+       subtitle = "Demonstrating ggplot2's flexibility")
+```
+
+# Statistical Analysis: t-tests and ANOVA
+
+## t-tests
+
+`t.test()` in R is used for comparing means. It is essential for hypothesis testing.
+
+```{r ttest}
+# Example: Comparing MPG for two transmission types
+t_result <- t.test(mpg ~ am, data = mtcars)
+print(t_result)
+```
+
+Real-world application: A/B testing in product development.
+
+## ANOVA
+
+ANOVA is used to test differences between multiple groups.
+
+```{r anova}
+# Example: ANOVA for MPG across cylinder groups
+anova_result <- aov(mpg ~ factor(cyl), data = mtcars)
+summary(anova_result)
+```
+
+Applications include experimental designs and clinical trials.
+
+# Advanced Topics: Bioinformatics with Bioconductor
+
+`Bioconductor` provides specialized tools for bioinformatics.
+
+## Gene Expression Analysis
+
+Gene expression data can be analyzed for differential expression.
+
+```{r gene_expression, eval=FALSE}
+library(DESeq2)
+
+# Example data loading and DESeq analysis
+dds <- DESeqDataSetFromMatrix(countData = count_matrix,
+                             colData = col_data,
+                             design = ~ condition)
+dds <- DESeq(dds)
+results <- results(dds)
+```
+
+## Heatmaps
+
+Heatmaps visualize complex data matrices.
+
+```{r heatmap, eval=FALSE}
+library(pheatmap)
+
+pheatmap(matrix_data,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         main = "Heatmap Example")
+```
+
+# Conclusion
+
+R programming is a powerful tool for data science, offering comprehensive functionality for data manipulation, visualization, and statistical analysis. Mastering its basics and advanced features can significantly enhance data-driven decision-making.
